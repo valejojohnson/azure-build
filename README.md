@@ -1,8 +1,6 @@
-# Azure Terraform Build - US WEST 2 (Default)
-## My first terraform build for azure resources
+# Azure Terraform Build - US WEST 2
+## Terraform build for starting a new Azure Resource Group
 
-### Mostly following this guide for starting this process
-https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli
 
 - [x] providers.tf
   - [x] azurerm provider
