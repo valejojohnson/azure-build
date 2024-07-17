@@ -12,7 +12,7 @@ resource "azurerm_virtual_network" "default" {
   name                = "${azurerm_resource_group.main.name}-vnet"
 
   address_space = ["10.0.0.0/16"]
-  location       = var.resource_group_location
+  location      = var.resource_group_location
 }
 
 resource "azurerm_subnet" "default" {
@@ -25,6 +25,8 @@ resource "azurerm_subnet" "default" {
 }
 
 resource "azurerm_ssh_public_key" "default" {
+  depends_on = [azurerm_resource_group.main]
+
   location            = var.resource_group_location
   name                = "${azurerm_resource_group.main.name}-ssh-key"
   public_key          = file("~/.ssh/id_rsa.pub")
@@ -32,6 +34,8 @@ resource "azurerm_ssh_public_key" "default" {
 }
 
 resource "azurerm_public_ip" "default" {
+  depends_on = [azurerm_resource_group.main]
+
   allocation_method   = "Dynamic"
   location            = var.resource_group_location
   name                = "${azurerm_resource_group.main.name}-public-ip"
@@ -39,6 +43,8 @@ resource "azurerm_public_ip" "default" {
 }
 
 resource "azurerm_network_interface" "default" {
+  depends_on = [azurerm_subnet.default]
+
   location            = var.resource_group_location
   name                = "${azurerm_resource_group.main.name}-netinf"
   resource_group_name = azurerm_resource_group.main.name

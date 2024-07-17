@@ -6,7 +6,7 @@ variable "resource_group_location" {
 
 variable "resource_group_name_prefix" {
   type        = string
-  default     = "test"
+  default     = "default"
   description = "Prefix for the name of the default resource group."
 }
 
