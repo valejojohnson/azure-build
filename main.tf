@@ -23,3 +23,10 @@ resource "azurerm_subnet" "default" {
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = azurerm_virtual_network.default.name
 }
+
+resource "azurerm_ssh_public_key" "default" {
+  location            = var.resource_group_location
+  name                = "${azurerm_resource_group.main.name}-ssh-key"
+  public_key          = file("~/.ssh/id_rsa.pub")
+  resource_group_name = azurerm_resource_group.main.name
+}
