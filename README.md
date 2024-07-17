@@ -10,3 +10,6 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli
 - [x] VNET
 - [x] Subnet
 - [x] SSH Key
+- [x] Network Interface
+- [x] Public IP
+- [ ] VM

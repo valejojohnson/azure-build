@@ -30,3 +30,23 @@ resource "azurerm_ssh_public_key" "default" {
   public_key          = file("~/.ssh/id_rsa.pub")
   resource_group_name = azurerm_resource_group.main.name
 }
+
+resource "azurerm_public_ip" "default" {
+  allocation_method   = "Dynamic"
+  location            = var.resource_group_location
+  name                = "${azurerm_resource_group.main.name}-public-ip"
+  resource_group_name = azurerm_resource_group.main.name
+}
+
+resource "azurerm_network_interface" "default" {
+  location            = var.resource_group_location
+  name                = "${azurerm_resource_group.main.name}-netinf"
+  resource_group_name = azurerm_resource_group.main.name
+
+  ip_configuration {
+    name                          = "default-ip-config"
+    subnet_id                     = azurerm_subnet.default.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.default.id
+  }
+}
