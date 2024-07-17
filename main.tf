@@ -2,11 +2,6 @@
 resource "azurerm_resource_group" "main" {
   name     = random_pet.rg_name.id
   location = var.resource_group_location
-
-  tags = {
-    Environment = "Testing"
-    Team        = "Home"
-  }
 }
 
 # Creating a default Network interface then a subnet
