@@ -15,6 +15,7 @@ resource "azurerm_virtual_network" "default" {
   location      = var.resource_group_location
 }
 
+# Default Subnet
 resource "azurerm_subnet" "default" {
   depends_on = [azurerm_virtual_network.default]
 
@@ -24,6 +25,7 @@ resource "azurerm_subnet" "default" {
   virtual_network_name = azurerm_virtual_network.default.name
 }
 
+# SSH Key
 resource "azurerm_ssh_public_key" "default" {
   depends_on = [azurerm_resource_group.main]
 
@@ -33,6 +35,7 @@ resource "azurerm_ssh_public_key" "default" {
   resource_group_name = azurerm_resource_group.main.name
 }
 
+# Public IP for VM's
 resource "azurerm_public_ip" "default" {
   depends_on = [azurerm_resource_group.main]
 
@@ -42,6 +45,7 @@ resource "azurerm_public_ip" "default" {
   resource_group_name = azurerm_resource_group.main.name
 }
 
+# Network interface for VM's
 resource "azurerm_network_interface" "default" {
   depends_on = [azurerm_subnet.default]
 
