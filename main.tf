@@ -60,3 +60,28 @@ resource "azurerm_network_interface" "default" {
     public_ip_address_id          = azurerm_public_ip.default.id
   }
 }
+
+
+# Define Network Security Group
+resource "azurerm_network_security_group" "port22" {
+  name                = "${azurerm_resource_group.main.name}-allow_port22"
+  location            = var.resource_group_location
+  resource_group_name = azurerm_resource_group.main.name
+
+  security_rule {
+    name                       = "allow_ssh"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+
+resource "azurerm_network_interface_security_group_association" "port22" {
+  network_interface_id      = azurerm_network_interface.default.id
+  network_security_group_id = azurerm_network_security_group.port22.id
+}

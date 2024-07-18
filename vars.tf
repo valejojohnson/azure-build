@@ -10,8 +10,8 @@ variable "resource_group_name_prefix" {
   description = "Prefix for the name of the default resource group."
 }
 
-variable "defaultun" {
+variable "default_username" {
   type        = string
-  default     = "username"
-  description = "default username"
+  default     = "masteruser"
+  description = "Master Username"
 }
