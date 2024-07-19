@@ -10,3 +10,6 @@ output "vm" {
   value = azurerm_linux_virtual_machine.linux.public_ip_address
 }
 
+output "vm_ami" {
+  value = azurerm_linux_virtual_machine.linux.source_image_id
+}
