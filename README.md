@@ -16,5 +16,5 @@
   - [x] resource group location
   - [x] name prefix
   - [x] default username
-- [ ] vm.tf
-  - [ ] VM
+- [x] vm.tf
+  - [x] VM
