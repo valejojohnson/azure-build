@@ -64,6 +64,8 @@ resource "azurerm_network_interface" "default" {
 
 # Define Network Security Group
 resource "azurerm_network_security_group" "port22" {
+  depends_on = [azurerm_network_interface.default]
+
   name                = "${azurerm_resource_group.main.name}-allow_port22"
   location            = var.resource_group_location
   resource_group_name = azurerm_resource_group.main.name
