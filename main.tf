@@ -1,5 +1,13 @@
+data "local_file" "ip_address" {
+  depends_on = [null_resource.end_device_ip]
+
+  filename = "${path.module}/ip_address.txt"
+}
+
 # Create a Resource group for all of the resources to live in
 resource "azurerm_resource_group" "main" {
+  depends_on = [data.local_file.ip_address]
+
   name     = random_pet.rg_name.id
   location = var.resource_group_location
 }
@@ -78,7 +86,7 @@ resource "azurerm_network_security_group" "port22" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "*"
+    source_address_prefix      = "${trimspace(data.local_file.ip_address.content)}/32"
     destination_address_prefix = "*"
   }
 }

@@ -1,6 +1,8 @@
 # Local .terraform directories
 **/.terraform/*
 
+ip_address.txt
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
