@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine" "linux" {
-  depends_on = [azurerm_ssh_public_key.default]
+  depends_on            = [azurerm_ssh_public_key.default]
   admin_username        = var.default_username
   location              = var.resource_group_location
   name                  = "linuxvm"
