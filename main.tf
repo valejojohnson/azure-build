@@ -1,3 +1,4 @@
+# Pull the local IP address from the ip_address file in the same folder
 data "local_file" "ip_address" {
   depends_on = [null_resource.end_device_ip]
 
@@ -44,12 +45,13 @@ resource "azurerm_ssh_public_key" "default" {
 }
 
 # Public IP for VM's
-resource "azurerm_public_ip" "default" {
+resource "azurerm_public_ip" "ipv4" {
   depends_on = [azurerm_resource_group.main]
 
+  ip_version          = "IPv4"
   allocation_method   = "Dynamic"
   location            = var.resource_group_location
-  name                = "${azurerm_resource_group.main.name}-public-ip"
+  name                = "${azurerm_resource_group.main.name}-public-ipv4"
   resource_group_name = azurerm_resource_group.main.name
 }
 
@@ -62,10 +64,11 @@ resource "azurerm_network_interface" "default" {
   resource_group_name = azurerm_resource_group.main.name
 
   ip_configuration {
-    name                          = "default-ip-config"
+    primary                       = true
+    name                          = "ipv4-config"
     subnet_id                     = azurerm_subnet.default.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.default.id
+    public_ip_address_id          = azurerm_public_ip.ipv4.id
   }
 }
 
@@ -91,6 +94,7 @@ resource "azurerm_network_security_group" "port22" {
   }
 }
 
+# Associate the Security Group to the Network Interface Above
 resource "azurerm_network_interface_security_group_association" "port22" {
   network_interface_id      = azurerm_network_interface.default.id
   network_security_group_id = azurerm_network_security_group.port22.id
