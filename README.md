@@ -2,6 +2,22 @@
 
 This Terraform configuration creates various Azure resources including a resource group, virtual network, subnet, public IP, network interface, SSH key, and network security group. It also pulls the local IP address from a script and uses it for security group configuration.
 
+
+## Resources Created
+
+| Resource Name                                                  | Resource Type                                    | Purpose                                                                                      | Region                     |
+|----------------------------------------------------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------|----------------------------|
+| `azurerm_resource_group.main`                                   | `azurerm_resource_group`                         | Creates a resource group for all other resources.                                             | `var.resource_group_location` |
+| `azurerm_virtual_network.default`                               | `azurerm_virtual_network`                        | Creates a virtual network within the resource group.                                          | `var.resource_group_location` |
+| `azurerm_subnet.default`                                        | `azurerm_subnet`                                 | Creates a subnet within the virtual network.                                                  | `var.resource_group_location` |
+| `azurerm_ssh_public_key.default`                                | `azurerm_ssh_public_key`                         | Stores an SSH public key for VM access.                                                       | `var.resource_group_location` |
+| `azurerm_public_ip.ipv4`                                        | `azurerm_public_ip`                              | Creates a public IP address for virtual machines (VMs).                                       | `var.resource_group_location` |
+| `azurerm_network_interface.default`                             | `azurerm_network_interface`                      | Creates a network interface for VMs, configuring public and dynamic private IPs.              | `var.resource_group_location` |
+| `azurerm_network_security_group.port22`                         | `azurerm_network_security_group`                 | Defines a network security group to allow SSH access (port 22) using the local IP address.    | `var.resource_group_location` |
+| `azurerm_network_interface_security_group_association.port22`   | `azurerm_network_interface_security_group_association` | Associates the network security group with the network interface.                             | `var.resource_group_location` |
+| `azurerm_linux_virtual_machine.linux`                           | `azurerm_linux_virtual_machine`                  | Creates a Linux virtual machine using the network interface and SSH key.                      | `var.resource_group_location` |
+"""
+
 ## Prerequisites
 
 Before starting with the Quick Start guide, ensure the following prerequisites are met:
