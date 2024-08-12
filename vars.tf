@@ -1,6 +1,6 @@
 variable "resource_group_location" {
   type        = string
-  default     = "westus2"
+  default     = "westus2" # West US 2 by default
   description = "Location of the default resource group."
 }
 

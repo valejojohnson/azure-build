@@ -71,7 +71,7 @@ resource "azurerm_network_interface" "default" {
 }
 
 
-# Define Network Security Group
+# Define Network Security Group for Port 22 access to the VM
 resource "azurerm_network_security_group" "port22" {
   depends_on = [azurerm_network_interface.default]
 
