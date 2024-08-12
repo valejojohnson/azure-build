@@ -2,18 +2,48 @@
 
 This Terraform configuration creates various Azure resources including a resource group, virtual network, subnet, public IP, network interface, SSH key, and network security group. It also pulls the local IP address from a script and uses it for security group configuration.
 
+## Prerequisites
+
+Before starting with the Quick Start guide, ensure the following prerequisites are met:
+
+1. **Install Terraform:**
+  - Download and install Terraform from the [official website](https://www.terraform.io/downloads).
+  - Verify the installation by running:
+    ```sh
+    terraform -v
+    ```
+
+2. **Install Azure CLI:**
+  - Download and install the Azure CLI from the [official website](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
+  - Verify the installation by running:
+    ```sh
+    az --version
+    ```
+
+3. **Create an Azure Subscription:**
+  - Ensure you have an active Azure subscription. You can sign up for a free account if you don't have one.
+
+4. **Set Up an SSH Public Key:**
+  - Ensure you have an SSH public key available at `~/.ssh/id_rsa.pub`. If you do not have one, you can generate it with:
+    ```sh
+    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+    ```
 
 ## Quick Start
 
 Follow these steps to quickly set up the Azure infrastructure using this Terraform configuration:
+1. **Login to Azure (from terminal window):**
+   ```sh
+   az login
+   ```
 
-1. **Clone the repository:**
+2. **Clone the repository:**
    ```sh
    git clone <repository-url>
    cd <repository-directory> 
    chmod +x local_ip.sh
    ```
-2. **Initialize Terraform and Deploy:**
+3. **Initialize Terraform and Deploy:**
    ```sh
    terraform init
    terraform apply --auto-approve
